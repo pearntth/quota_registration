@@ -1,0 +1,44 @@
+{% extends 'students/layout.html' %}
+
+{% block body %}
+<div class="home-body">
+    <h2>Welcome, {{ request.user.first_name }} {{ request.user.last_name }}</h2>
+    <table class="table table-hover caption-top">
+        <caption>Your Courses</caption>
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Course</th>
+                <th scope="col">Status</th>
+                {% if course.is_approved %}
+                <th scope="col">Cancel</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in user_courses %}
+            {% if not course.is_cancelled %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ course }}</td>
+                {% if not course.is_approved %} 
+                <td class="text-success">APPROVED</td>
+                {% else %} 
+                <td class="text-warning">PENDING</td> 
+                {% endif %}
+                <td>
+                    {% if course.is_approved %}
+                    <form method="post" action="{% url 'cancel_request' course.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit">Cancel</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-dark" href="{% url 'course_list' %}">Register</a>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'students/layout.html' %}
+
+{% block body %}
+<div class="register-body">
+    <h2>Quota Register</h2>
+    <form method="get" action="{% url 'course_list' %}">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="search" placeholder="Search courses">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Course</th>
+                <th scope="col">Semester</th>
+                <th scope="col">Year</th>
+                <th scope="col">Seat</th>
+                <th scope="col">Status</th>
+                <th scope="col">Request Quota</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ course.code }} ({{ course.name }})</td>
+                <td>{{ course.semester }}</td>
+                <td>{{ course.year }}</td>
+                <td>{{ course.seats_available }}</td>
+                {% if course.is_open %}
+                <td class="text-success">OPEN</td>
+                {% else %}
+                <td class="text-danger">CLOSE</td>
+                {% endif %}
+                <td>
+                    {% if course.is_open %}
+                    <form method="post" action="{% url 'request_quota' course.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-dark register-button" type="submit">Request</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-secondary" href="{% url 'home' %}">Back</a>
+</div>
+{% endblock %}

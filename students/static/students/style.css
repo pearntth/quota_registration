@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&family=Poppins:wght@300;400;500&display=swap');
+
+/* Global */
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+    font-size: 72px;
+}
+
+h2 {
+    font-size: 48px;
+}
+
+table {
+    text-align: center;
+    max-width: 100%;
+}
+
+/* Home */
+.home-body {
+    display: block;
+    justify-content: center;
+    margin: 4rem;
+}
+
+.home-body h2 {
+    margin-bottom: 10px;
+}
+
+/* Register */
+.register-body {
+    display: block;
+    justify-content: center;
+    margin: 4rem;
+}
+
+.register-body h2 {
+    margin-bottom: 20px;
+}
+
+.register-body form {
+    margin-bottom: 20px;
+}
+
+/* Login */
+.login-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10rem;
+}
+
+.login-form {
+    align-items: center; 
+    margin-right: 7rem;
+}
